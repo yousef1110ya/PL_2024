@@ -10,13 +10,9 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->string('StoreName');
-            $table->string('StoreName_AR');
-            $table->string('location');
-            $table->json('tags')->nullable();
-            $table->string('complainNumber');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -26,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('tags');
     }
 };

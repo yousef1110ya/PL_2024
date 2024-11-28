@@ -10,14 +10,14 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('store_tag', function (Blueprint $table) {
             $table->id();
-            $table->string('StoreName');
-            $table->string('StoreName_AR');
-            $table->string('location');
-            $table->json('tags')->nullable();
-            $table->string('complainNumber');
+            $table->unsignedBigInteger('store_id');
+            $table->foreign('store_id')->references('id')->on('stores')->onDelete('cascade');
+            $table->unsignedBigInteger('tag_id');
             $table->timestamps();
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('store_tag');
     }
 };

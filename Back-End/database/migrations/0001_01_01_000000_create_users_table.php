@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->string('phoneNumber')->default('00000000');
             $table->string('location')->default('NO Location provided');
             $table->string('profile-image')->default('NO IMAGE PROVIDED');
+            $table->string('role')->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

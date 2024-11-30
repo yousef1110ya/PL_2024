@@ -8,6 +8,7 @@ use App\Models\Store;
 use App\Models\StoreTag;
 use App\Models\ProductTags;
 use App\Models\Product;
+use App\Models\User;
 
 class StoreController extends Controller
 {
@@ -22,6 +23,33 @@ class StoreController extends Controller
         ]);
     }
 
+    public function getProductDetails($storeId, $productId)
+    {
+        // Fetch the store and product from the database
+        $store = Store::find($storeId);
+        $product = Product::find($productId);
+
+        // Check if the store and product exist
+        if (!$store || !$product) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Store or product not found'
+            ], 404);
+        }
+
+        // Check if the product belongs to the store
+        if ($product->store_id !== $storeId) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Product does not belong to this store'
+            ], 403);
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'product' => $product
+        ]);
+    }
     public function getStoreTags()
     {
         // in this function we will call the store tags to put at the top of the HomePage
@@ -67,6 +95,21 @@ class StoreController extends Controller
             'status' => 'success',
             'store' => $store,
             'products' => $store->products
+        ]);
+    }
+
+    public function getUserById($id)
+    {
+        $user = User::find($id);
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not found'
+            ], 404);
+        }
+        return response()->json([
+            'status' => 'success',
+            'user' => $user
         ]);
     }
 }

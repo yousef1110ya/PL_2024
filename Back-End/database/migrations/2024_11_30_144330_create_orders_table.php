@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('store_id')->constrained('stores');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('driver_id')->constrained('users');
+            $table->foreignId('driver_id')->constrained('users')->nullable();
             $table->json('product_list');
             $table->string('current_state');
             $table->date('order_date');

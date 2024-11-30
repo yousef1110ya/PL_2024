@@ -17,3 +17,4 @@ Route::post('/test', function (Request $request) {
 
 require __DIR__ . '/Auth/user-auth.php';
 require __DIR__ . '/Auth/admin-auth.php';
+require __DIR__ . '/Auth/driver-auth.php';

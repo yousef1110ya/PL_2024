@@ -15,6 +15,13 @@ return new class extends Migration {
             $table->string('name');
             $table->timestamps();
         });
+
+        Schema::create('store_store_tag', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('store_id')->constrained()->onDelete('cascade');
+            $table->foreignId('store_tag_id')->constrained()->onDelete('cascade');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -22,6 +29,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
+        Schema::dropIfExists('store_store_tag');
         Schema::dropIfExists('store_tags');
     }
 };

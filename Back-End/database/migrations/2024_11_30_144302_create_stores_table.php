@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('name_AR');
             $table->string('location');
             $table->string('store-image');
+            $table->string('phone');
             $table->timestamps();
         });
     }

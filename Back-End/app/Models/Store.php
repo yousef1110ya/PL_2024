@@ -10,7 +10,7 @@ class Store extends Model
     /** @use HasFactory<\Database\Factories\StoreFactory> */
     use HasFactory;
 
-    protected $fillable = ['name', 'location', 'store-image'];
+    protected $fillable = ['name', 'name_AR','location', 'store-image' , 'phone'];
     public function products()
     {
         return $this->hasMany(Product::class);

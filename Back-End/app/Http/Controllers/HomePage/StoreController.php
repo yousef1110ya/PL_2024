@@ -15,7 +15,7 @@ class StoreController extends Controller
     //this controller is for all the used methodes inside the Home Page
     public function getStores()
     {
-        // to get all the stores as pages 
+        // to get all the stores as pages
         $stores = Store::paginate(10);
         return response()->json([
             'status' => 'success',
@@ -111,5 +111,31 @@ class StoreController extends Controller
             'status' => 'success',
             'user' => $user
         ]);
+    }
+
+
+    public function createStore(Request $request)
+    {
+    $validatedData = $request->validate([
+        'name' => 'required|string|max:255',
+        'name_AR' => 'required|string|max:255',
+        'location' => 'required|string|max:255',
+        'store-image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        'phone' => 'required|string|max:20',
+
+    ]);
+
+        $fileName = $validatedData['name'] . '.' . $request->file('store-image')->getClientOriginalExtension();
+        $imagePath = $request->file('store-image')->storeAs('Stores', $fileName, 'public');
+        $validatedData['store-image'] = $imagePath;
+
+
+    $store = Store::create($validatedData);
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Store created successfully',
+        'store' => $store
+    ], 201);
     }
 }

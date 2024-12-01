@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->foreignId('driver_id')->constrained('users')->nullable();
             $table->json('product_list');
             $table->string('current_state');
+            $table->integer('fee');
+            $table->integer('total');
             $table->date('order_date');
             $table->date('deliver_date');
             $table->timestamps();

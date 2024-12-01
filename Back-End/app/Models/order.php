@@ -9,7 +9,7 @@ class order extends Model
 {
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
-    protected $fillable = ['store_id', 'user_id', 'driver_id', 'product_list', 'current_state', 'order_date', 'deliver_date'];
+    protected $fillable = ['store_id', 'user_id', 'driver_id', 'product_list', 'current_state', 'order_date', 'deliver_date' , 'fee' , 'total'];
     public function store()
     {
         return $this->belongsTo(Store::class);

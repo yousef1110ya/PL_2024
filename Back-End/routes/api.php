@@ -15,7 +15,6 @@ Route::post('/test', function (Request $request) {
     return 'welcome Admin';
 })->middleware('auth:sanctum')->middleware(CheckAdmin::class);
 
-
 // the API's for users auth with all roles
 require __DIR__ . '/Auth/user-auth.php';
 require __DIR__ . '/Auth/admin-auth.php';

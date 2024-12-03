@@ -21,4 +21,4 @@ Route::get('/Stores/{id}', [StoreController::class, 'getStore']);
 
 
 // creating a store
-Route::post('/Stores/create', [StoreController::class, 'createStore'])->middleware(CheckAdmin::class);;
+Route::post('/Stores/create', [StoreController::class, 'createStore'])->middleware('auth:sanctum')->middleware(CheckAdmin::class);

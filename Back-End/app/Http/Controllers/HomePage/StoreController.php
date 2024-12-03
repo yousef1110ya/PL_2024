@@ -38,10 +38,11 @@ class StoreController extends Controller
         }
 
         // Check if the product belongs to the store
-        if ($product->store_id !== $storeId) {
+        if ((string) $product->store_id !== (string) $storeId) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Product does not belong to this store'
+                'product : store_id' => $product->store_id,
+                'storeId' => $storeId
             ], 403);
         }
 
@@ -82,7 +83,7 @@ class StoreController extends Controller
         ]);
     }
 
-    public function getStore(Request $request , $id)
+    public function getStore(Request $request, $id)
     {
 
         // finding the store and returning it
@@ -93,10 +94,7 @@ class StoreController extends Controller
                 'message' => 'Store not found'
             ], 404);
         }
-        // made the user shopping cart empty so he cannot order from more than one store
-        $user = $request->user();
-        $user->shopping_cart = [];
-        $user->save();
+
         // I added the user shopping cart deletion part after the checking if the store is there
         return response()->json([
             'status' => 'success',
@@ -123,26 +121,26 @@ class StoreController extends Controller
 
     public function createStore(Request $request)
     {
-    $validatedData = $request->validate([
-        'name' => 'required|string|max:255',
-        'name_AR' => 'required|string|max:255',
-        'location' => 'required|string|max:255',
-        'store-image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'phone' => 'required|string|max:20',
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'name_AR' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'store-image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'phone' => 'required|string|max:20',
 
-    ]);
+        ]);
 
         $fileName = $validatedData['name'] . '.' . $request->file('store-image')->getClientOriginalExtension();
         $imagePath = $request->file('store-image')->storeAs('Stores', $fileName, 'public');
         $validatedData['store-image'] = $imagePath;
 
 
-    $store = Store::create($validatedData);
+        $store = Store::create($validatedData);
 
-    return response()->json([
-        'status' => 'success',
-        'message' => 'Store created successfully',
-        'store' => $store
-    ], 201);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Store created successfully',
+            'store' => $store
+        ], 201);
     }
 }

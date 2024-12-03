@@ -15,7 +15,7 @@ Route::get('/Stores/storeTags', [StoreController::class, 'getStoreTags']);
 //with getting the store we got all the products from that store
 Route::get('/Stores/{id}', [StoreController::class, 'getStore']);
 // getting the product from the store id
-Route::get('/Stores/{storeId}/product/{productId}', [StoreController::class, 'getProductDetails']);
+//Route::get('/Stores/{storeId}/product/{productId}', [StoreController::class, 'getProductDetails']);
 
 // helping with some dashboard functions for filling up the DB
 

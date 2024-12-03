@@ -31,7 +31,6 @@ class UserAuthController extends Controller
         $imagePath = $request->file('profile-image')->storeAs('Users', $fileName, 'public');
         $validated['profile-image'] = $imagePath;
 
-        echo "trying to create the user";
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -41,7 +40,7 @@ class UserAuthController extends Controller
             'role' => $validated['role'],
             'profile-image' => $validated['profile-image']
         ]);
-        echo "created the user";
+
 
         $token = $user->createToken($request->name);
         echo "generated the user token";
@@ -108,7 +107,8 @@ class UserAuthController extends Controller
             'phoneNumber' => $validated['phoneNumber'],
             'location' => $validated['location'],
             'role' => $validated['role'],
-            'profile-image' => $validated['profile-image']
+            'profile-image' => $validated['profile-image'],
+            'shopping_cart' => null
         ]);
 
 

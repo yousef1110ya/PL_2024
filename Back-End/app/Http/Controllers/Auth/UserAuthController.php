@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+
 use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,6 +28,8 @@ class UserAuthController extends Controller
             'profile-image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ]);
         //for saving the image of the user
+
+
 
         $fileName = $validated['name'] . '.' . $request->file('profile-image')->getClientOriginalExtension();
         $imagePath = $request->file('profile-image')->storeAs('Users', $fileName, 'public');
@@ -88,13 +92,17 @@ class UserAuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Validation failed',
+
                 'errors' => $validator->errors(),
+
             ], 422);
         }
 
         $validated = $validator->validated();
 
-        //for saving the image of the user
+
+        //for saving the image of the user 
+
 
         $fileName = $validated['name'] . '.' . $request->file('profile-image')->getClientOriginalExtension();
         $imagePath = $request->file('profile-image')->storeAs('Users', $fileName, 'public');

@@ -37,6 +37,12 @@ class ProductController extends Controller
     return $cart;
     }
 
+    public function addToFaviorate(Request $request , $productId)
+    {
+
+    }
+
+
     /**
      * Store a newly created resource in storage.
      */

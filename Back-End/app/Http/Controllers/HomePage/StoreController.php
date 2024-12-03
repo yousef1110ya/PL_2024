@@ -82,8 +82,10 @@ class StoreController extends Controller
         ]);
     }
 
-    public function getStore($id)
+    public function getStore(Request $request , $id)
     {
+
+        // finding the store and returning it
         $store = Store::find($id);
         if (!$store) {
             return response()->json([
@@ -91,6 +93,11 @@ class StoreController extends Controller
                 'message' => 'Store not found'
             ], 404);
         }
+        // made the user shopping cart empty so he cannot order from more than one store
+        $user = $request->user();
+        $user->shopping_cart = [];
+        $user->save();
+        // I added the user shopping cart deletion part after the checking if the store is there
         return response()->json([
             'status' => 'success',
             'store' => $store,

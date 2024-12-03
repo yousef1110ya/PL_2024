@@ -14,7 +14,7 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function addToCart(Request $request , $productId)
+    public function addToCart(Request $request , $productId , $many)
     {
     $user = $request->user();
     $product = Product::find($productId);
@@ -26,10 +26,13 @@ class ProductController extends Controller
         'product_id' => $product->id,
         'name' => $product->name,
         'price' => $product->price,
-        'quantity' => 1,
+        'quantity' => $many,
     ];
     $user->shopping_cart = $cart;
     $user->save();
+    // Update the product quantity and reduce it by the quantity inside the cart
+        $product->quantity -= $many;
+    $product->save();
 
     return $cart;
     }

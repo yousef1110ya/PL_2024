@@ -13,6 +13,8 @@ use App\Http\Middleware\CheckAdmin;
 Route::get('/Stores/{storeId}/product/{productId}', [StoreController::class, 'getProductDetails']);
 // adding the product to the shopping list of the user
 Route::post('/product/{productId}/addToCart/{many}', [ProductController::class, 'addToCart']);
+// adding a product to faviorate
+Route::post('/product/{productId}/faviorate', [ProductController::class, 'addToCart']);
 
 // functions helping for the dashboard
 

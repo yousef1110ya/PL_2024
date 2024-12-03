@@ -13,12 +13,12 @@ use App\Http\Middleware\CheckAdmin;
 // for all users and admins
 
 // creating the order for the driver app
-Route::post('/order/Stores/{storeId}/product/{productId}', [CreatingController::class, 'createOrder']);
+Route::post('/order/Stores/{storeId}/Order', [CreatingController::class, 'createOrder']);
 // creating a list of products for
 // getting order by ID
-Route::get('/orders/{orderId}' , [CreatingController::class , 'getOrder']);
+Route::get('/orders/{orderId}' , [CreatingController::class , 'getOrder'])->middleware('auth:sanctum');
 // get all the orders for one user Past and present
-Route::get('orders/history', [CreatingController::class, 'orderHistory']);
+Route::get('orders/history', [CreatingController::class, 'orderHistory'])->middleware('auth:sanctum');
 
 
 
@@ -28,3 +28,5 @@ Route::get('orders/history', [CreatingController::class, 'orderHistory']);
 Route::get('/orders', [CreatingController::class, 'getAllOrders'])->middleware(CheckDriver::class);
 // to update the state of the order and then notify the user
 Route::put('/orders/{orderId}/changeState', [CreatingController::class, 'updateOrderState'])->middleware(CheckDriver::class);
+// accepting the order by the driver
+Route::put('/orders/{orderId}/accept' , [CreatingController::class , 'acceptOrder'])->middleware(CheckDriver::class)->middleware('auth:sanctum');

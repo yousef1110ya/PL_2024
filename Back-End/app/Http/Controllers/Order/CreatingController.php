@@ -15,7 +15,18 @@ class CreatingController extends Controller
 {
     //this controller is all about creating orders
 
-
+    public function acceptOrder(Request $request , $orderId)
+    {
+        $user = $request->user();
+        $order = Order::find($orderId);
+        $order->driver_id = $user->id;
+        $order->save();
+        return response()->json([
+            'status' => 'your order was accepted by:',
+            'driverName' => $user->name,
+            'order' => $order
+        ]);
+    }
     // getting order by id
     public function getOrder($orderId)
     {

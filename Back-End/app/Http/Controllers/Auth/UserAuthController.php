@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Hash;
+
+use Illuminate\Support\Facades\Hash;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,13 +27,14 @@ class UserAuthController extends Controller
             'role' => ['string'],
             'profile-image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ]);
-        //for saving the image of the user 
+        //for saving the image of the user
+
+
 
         $fileName = $validated['name'] . '.' . $request->file('profile-image')->getClientOriginalExtension();
         $imagePath = $request->file('profile-image')->storeAs('Users', $fileName, 'public');
         $validated['profile-image'] = $imagePath;
 
-        echo "trying to create the user";
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
@@ -41,7 +44,7 @@ class UserAuthController extends Controller
             'role' => $validated['role'],
             'profile-image' => $validated['profile-image']
         ]);
-        echo "created the user";
+
 
         $token = $user->createToken($request->name);
         echo "generated the user token";
@@ -89,13 +92,17 @@ class UserAuthController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Validation failed',
-                'errors' => $validator->errors()
+
+                'errors' => $validator->errors(),
+
             ], 422);
         }
 
         $validated = $validator->validated();
 
+
         //for saving the image of the user 
+
 
         $fileName = $validated['name'] . '.' . $request->file('profile-image')->getClientOriginalExtension();
         $imagePath = $request->file('profile-image')->storeAs('Users', $fileName, 'public');
@@ -108,7 +115,8 @@ class UserAuthController extends Controller
             'phoneNumber' => $validated['phoneNumber'],
             'location' => $validated['location'],
             'role' => $validated['role'],
-            'profile-image' => $validated['profile-image']
+            'profile-image' => $validated['profile-image'],
+            'shopping_cart' => null
         ]);
 
 

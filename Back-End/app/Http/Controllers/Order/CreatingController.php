@@ -86,7 +86,8 @@ class CreatingController extends Controller
             'fee' => $fee, // Adding the calculated fee to the order
             'total' => $totalSum, // the total sum of the order price
         ]);
-
+        $user->shopping_cart = [];
+        $user->save();
         return response()->json([
             'status' => 'success',
             'order' => $order

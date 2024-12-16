@@ -19,15 +19,9 @@ class ProductController extends Controller
     {
 
 
-        $token = $request->bearerToken();
-        $tokenData = DB::table('personal_access_tokens')->where('token', $token)->first();
-        if ($tokenData) {
-            $user = User::find($tokenData->tokenable_id);
-            if (!$user) {
-                return response()->json(['message' => 'there is no User !!!!!'], 403);
-            }
-        } else {
-            return response()->json(['message' => 'there is no data in the user'], 403);
+        $user = $request->user();
+        if (!$user) {
+            return response()->json(['message' => 'User not found'], 403);
         }
 
 

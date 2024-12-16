@@ -13,7 +13,7 @@ use App\Http\Middleware\CheckAdmin;
 // for all users and admins
 
 // creating the order for the driver app
-Route::post('/order/Stores/{storeId}/Order', [CreatingController::class, 'createOrder']);
+Route::post('/v0.1/orderPage/createOrder', [CreatingController::class, 'createOrder']);
 // creating a list of products for
 // getting order by ID
 Route::get('/orders/{orderId}' , [CreatingController::class , 'getOrder'])->middleware('auth:sanctum');

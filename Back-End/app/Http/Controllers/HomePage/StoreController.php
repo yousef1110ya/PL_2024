@@ -64,22 +64,21 @@ class StoreController extends Controller
 
     public function search(Request $request)
     {
-        // this function is for the search engine inside the homepage
+        // Validate the search term
+        $validatedData = $request->validate([
+            'query' => 'required|string|max:255',
+        ]);
 
-        $searchTerm = $request->find;
-        $storeTags = StoreTag::where('name', 'like', '%' . $searchTerm . '%')->pluck('id');
-        $productTags = ProductTags::where('name', 'like', '%' . $searchTerm . '%')->pluck('id');
-        $stores = Store::whereHas('tags', function ($query) use ($storeTags) {
-            $query->whereIn('store_tag_id', $storeTags);
-        })->get();
-        $products = Product::whereHas('tags', function ($query) use ($productTags) {
-            $query->whereIn('product_tag_id', $productTags);
-        })->get();
+        $query = $validatedData['query'];
+
+        // Search for stores and products that match the query
+        $stores = Store::where('name', 'LIKE', "%{$query}%")->get();
+        $products = Product::where('name', 'LIKE', "%{$query}%")->get();
 
         return response()->json([
             'status' => 'success',
-            'storeTags' => $storeTags,
-            'productTags' => $productTags
+            'stores' => $stores,
+            'products' => $products
         ]);
     }
 

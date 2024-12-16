@@ -12,15 +12,14 @@ return new class extends Migration {
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('store_id')->constrained('stores');
             $table->foreignId('user_id')->constrained('users');
-            $table->foreignId('driver_id')->constrained('users')->nullable();
+            $table->foreignId('driver_id')->nullable()->constrained('users')->default(null);
             $table->json('product_list');
             $table->string('current_state');
             $table->integer('fee');
             $table->integer('total');
             $table->date('order_date');
-            $table->date('deliver_date');
+            $table->date('deliver_date')->nullable()->default(null);
             $table->timestamps();
         });
     }

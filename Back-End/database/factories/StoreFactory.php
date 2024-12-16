@@ -18,6 +18,11 @@ class StoreFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->company, // Generates a random company name
+            'name_AR' => $this->faker->company, // Generates a random company name in Arabic
+            'location' => $this->faker->address, // Generates a random address
+            'phone' => $this->faker->phoneNumber, // Generates a random phone number
+            'store-image' => null,
         ];
     }
 }

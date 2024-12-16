@@ -14,7 +14,7 @@ Route::post('/v0.1/HomePage/search', [StoreController::class, 'search']);
     and the other json obj is a list of the products that have the query
 */
 // getting the product from the store id
-Route::get('/v0.1/HomePage/profile/{id}', [StoreController::class, 'getUserById'])->middleware('auth:sanctum');
+Route::get('/v0.1/HomePage/profile', [StoreController::class, 'getUserById'])->middleware('auth:sanctum');
 /*
     this route will need only the user and the token
 */

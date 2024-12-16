@@ -14,13 +14,15 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phoneNumber')->default('00000000');
+            $table->string('phoneNumber')->default('00000000')->unique();
             $table->string('location')->default('NO Location provided');
             $table->string('profile-image')->default('NO IMAGE PROVIDED');
-            $table->string('role')->default('user')->change();
+            $table->string('role')->default('user');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->json('shopping_cart')->nullable(); // Added shopping cart list
+            $table->json('Faviorate')->nullable(); // Added a faviorate list list
             $table->timestamps();
         });
 

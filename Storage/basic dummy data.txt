@@ -1,0 +1,19 @@
+in this file I'll be creating some users and admins and try some functions so I need to create some basic data first
+the Admon account is :
+name : biro10
+email : biro10@you.com
+phone : 00000000010
+pass  : 11101110
+token : 1|7VwxxU7UiFQL9eA1ie8wxh6hR8b7DJGt2e5WDckS765ad44d
+
+===========================================
+
+the first store:
+
+id   : 1
+name : first
+phone ; 3442637
+lication : the first turn after the school
+
+===========================================
+

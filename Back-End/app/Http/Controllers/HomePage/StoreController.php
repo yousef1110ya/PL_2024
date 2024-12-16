@@ -102,9 +102,9 @@ class StoreController extends Controller
         ]);
     }
 
-    public function getUserById($id)
+    public function getUserById(Request $request)
     {
-        $user = User::find($id);
+        $user = $request->user();
         if (!$user) {
             return response()->json([
                 'status' => 'error',

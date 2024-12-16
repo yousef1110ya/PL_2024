@@ -25,7 +25,9 @@ class User extends Authenticatable
         'phoneNumber',
         'location',
         'profile-image',
-        'role'
+        'role',
+        'shopping_cart'
+
 
     ];
 

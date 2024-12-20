@@ -135,4 +135,40 @@ class UserAuthController extends Controller
             'message' => 'you are logged out',
         ];
     }
+
+    public function editLocation(Request $request)
+    {
+        $validatedData = $request->validate([
+            'location' => 'required|string|max:255',
+        ]);
+
+        $user = $request->user();
+        $user->location = $validatedData['location'];
+        $user->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Location updated successfully',
+            'user' => $user
+        ]);
+    }
+
+    public function editShoppingCart(Request $request)
+    {
+        $validatedData = $request->validate([
+            'shopping_cart' => 'required|array',
+        ]);
+
+        $user = $request->user();
+        $user->shopping_cart = json_encode($validatedData['shopping_cart']);
+        $user->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Shopping cart updated successfully',
+            'user' => $user
+        ]);
+
+
+    }
 }

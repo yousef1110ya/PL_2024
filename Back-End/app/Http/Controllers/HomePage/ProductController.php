@@ -26,7 +26,10 @@ class ProductController extends Controller
 
 
         $product = Product::find($productId);
-        $cart = $user->shopping_cart;
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 403);
+        }
+        $cart = json_decode($user->shopping_cart, true);
         if (!$cart) {
             $cart = [];
         }
@@ -38,9 +41,6 @@ class ProductController extends Controller
         ];
         $user->shopping_cart = $cart;
         $user->save();
-        // Update the product quantity and reduce it by the quantity inside the cart
-        $product->quantity -= $many;
-        $product->save();
 
         return $cart;
     }

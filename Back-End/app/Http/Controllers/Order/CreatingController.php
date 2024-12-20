@@ -14,7 +14,22 @@ use App\Notifications\OrderStateChangeNotification;
 class CreatingController extends Controller
 {
     //this controller is all about creating orders
+    public function deleteOrder(Request $request, $orderId)
+    {
 
+        $order = Order::find($orderId);
+        if (!$order) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Order not found'
+            ], 404);
+        }
+        $order->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Order deleted successfully'
+        ]);
+    }
     public function acceptOrder(Request $request, $orderId)
     {
         $user = $request->user();
@@ -78,6 +93,20 @@ class CreatingController extends Controller
             'total' => $totalSum, // the total sum of the order price
             'driver_id' => null, // Adding the driver id and setting it to null
         ]);
+        foreach ($shoppingCart as $item) {
+            $product = Product::find($item['product_id']);
+            if ($product) {
+                $product->quantity -= $item['quantity'];
+                if ($product->quantity < 0) {
+                    return response()->json([
+                        'status' => 'faild',
+                        'message' => 'you cannot order because there are no enough at the store of the following product',
+                        'product' => $product
+                    ]);
+                }
+                $product->save();
+            }
+        }
         $user->shopping_cart = [];
         $user->save();
         return response()->json([

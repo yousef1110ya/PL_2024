@@ -33,8 +33,8 @@ Route::get('/v0.1/orders/history', [CreatingController::class, 'getAllMyOrders']
 
 // for drivers
 // getting all orders for the driver home page
-Route::get('/orders', [CreatingController::class, 'getAllOrders'])->middleware(CheckDriver::class);
+Route::get('/orders', [CreatingController::class, 'getAllOrders'])->middleware(CheckDriver::class)->middleware('auth:sanctum');
 // to update the state of the order and then notify the user
-Route::put('/orders/{orderId}/changeState', [CreatingController::class, 'updateOrderState'])->middleware(CheckDriver::class);
+Route::put('/orders/{orderId}/changeState', [CreatingController::class, 'updateOrderState'])->middleware(CheckDriver::class)->middleware('auth:sanctum');
 // accepting the order by the driver
 Route::put('/orders/{orderId}/accept', [CreatingController::class, 'acceptOrder'])->middleware(CheckDriver::class)->middleware('auth:sanctum');

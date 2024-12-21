@@ -21,3 +21,4 @@ require __DIR__ . '/Auth/admin-auth.php';
 require __DIR__ . '/Auth/driver-auth.php';
 require __DIR__ . '/Pages/HomePage.php';
 require __DIR__ . '/Pages/OrderPage.php';
+require __DIR__ . '/Pages/DashBoard.php';

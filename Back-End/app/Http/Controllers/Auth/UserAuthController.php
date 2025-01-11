@@ -85,7 +85,7 @@ class UserAuthController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'phoneNumber' => ['required', 'string', 'unique:users', 'min:10', 'max:15'],
             'location' => ['required', 'string', 'max:255'],
-            'role' => ['sometimes', 'string', 'in:user,admin'],
+            'role' => ['sometimes', 'string', 'in:user,admin,driver'],
             'profile-image' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048']
         ]);
 
